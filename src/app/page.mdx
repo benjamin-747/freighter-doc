@@ -1,0 +1,93 @@
+import { SparkleIcon } from '@/components/SparkleIcon'
+
+export { Layout as default } from '@/components/Layout'
+
+
+
+---
+
+
+## Freighter v0.1.0 {{  date: '2023-08-23T00:00Z' }}
+
+
+## Freighter - Crates代理和镜像
+
+Freighter的目标是帮助社区和公司构建crates.io的代理和开发环境的镜像。
+
+
+### 为什么需要Freighter？
+
+在公司中使用Rust开发程序时，我们需要为以下原因托管crates.io的代理和私有crates注册表：
+
+- 开发人员将被允许仅使用公司的crate，具有安全性和完整评估。
+- 一些crate需要升级功能或修复错误，新版本不允许开发人员向上游贡献。
+- 一些私有crate在开发过程中与不同团队和产品共享。
+
+### 主要功能是什么？
+
+- Freighter是一个私有crate、公共crate索引和从crates.io同步crate的crate注册表。注册表可以将文件存储在本地磁盘或符合S3存储服务的存储中。
+- Freighter具有用于评分公共crate的分析引擎。
+- Freighter在DevOps中使用的评估crate的黑名单和白名单。
+
+
+### 如何使用Freighter？
+
+Step1：修改环境变量 ~/.zshrc or ~/.bashrc，添加以下配置
+
+```bash
+export RUSTUP_DIST_SERVER="https://rust-lang.nju.edu.cn"
+export RUSTUP_UPDATE_ROOT="https://rust-lang.nju.edu.cn/rustup"
+```
+
+Step2：通过rustup-init.sh 安装Rust（已经通过官方源安装可跳过）
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://rust-lang.nju.edu.cn/rustup-init.sh | sh
+```
+
+step3：修改 ~/.cargo/config，添加以下配置
+
+```bash
+[source.crates-io]
+replace-with = 'rust-nju'
+
+[source.rust-nju]
+registry = "https://rust-lang.nju.edu.cn/crates.io-index"
+
+[registries.rust-nju]
+index = "https://rust-lang.nju.edu.cn/crates.io-index"
+
+[net]
+git-fetch-with-cli = true
+```
+
+### 如何贡献？
+
+
+
+
+此项目遵循[DCO](https://developercertificate.org)（开发者证书）.
+
+贡献者通过在提交消息中添加Signed-off-by行来签署遵循这些要求。
+
+```bash
+This is my commit message
+
+Signed-off-by: Random J Developer <random@developer.example.org>
+```
+
+Git有一个-s命令行选项，可以自动将其附加到您的提交消息中：
+
+
+```bash
+$ git commit -s -m 'This is my commit message'
+```
+
+### 许可证
+
+Freighter在以下许可下：
+
+* MIT LICENSE ( [LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT) 
+* Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
+
+### 致谢
